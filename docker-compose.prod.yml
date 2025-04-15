@@ -25,7 +25,7 @@ services:
     build:
       context: ./auth-ms
       dockerfile: Dockerfile.prod
-    image: southamerica-west1-docker.pkg.dev/tienda-microservicios-456723/images-registry/auth-ms  
+    image: southamerica-west1-docker.pkg.dev/tienda-microservicios-456723/images-registry/auth-ms
     environment:
       - PORT=3000
       - NATS_SERVERS=nats://nats-server:4222
