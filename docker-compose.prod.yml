@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 
 services:
   nats-server:
@@ -13,13 +13,13 @@ services:
     image: southamerica-west1-docker.pkg.dev/tienda-microservicios-456723/images-registry/client-gateway
     # build: ./client-gateway
     ports:
-     - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
+      - ${CLIENT_GATEWAY_PORT}:${CLIENT_GATEWAY_PORT}
     # volumes:
     #   - ./client-gateway/src:/usr/src/app/src
     # command: npm run start:dev
     environment:
-     - PORT=${CLIENT_GATEWAY_PORT}
-     - NATS_SERVERS=nats://nats-server:4222
+      - PORT=${CLIENT_GATEWAY_PORT}
+      - NATS_SERVERS=nats://nats-server:4222
 
   auth-ms:
     build:
@@ -73,14 +73,13 @@ services:
     build:
       context: ./payments-ms
       dockerfile: Dockerfile.prod
-    image: southamerica-west1-docker.pkg.dev/tienda-microservicios-456723/images-registry/payments-ms 
+    image: southamerica-west1-docker.pkg.dev/tienda-microservicios-456723/images-registry/payments-ms
     ports:
       - ${PAYMENTS_MS_PORT}:${PAYMENTS_MS_PORT}
     environment:
       - PORT=${PAYMENTS_MS_PORT}
-      - NATS_SERVERS=nats://nats-server:4222 
+      - NATS_SERVERS=nats://nats-server:4222
       - STRIPE_SECRET=${STRIPE_SECRET}
       - STRIPE_SUCCESS_URL=${STRIPE_SUCCESS_URL}
       - STRIPE_CANCEL_URL=${STRIPE_CANCEL_URL}
       - STRIPE_ENDPOINT_SECRET=${STRIPE_ENDPOINT_SECRET}
-

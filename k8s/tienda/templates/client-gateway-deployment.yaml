@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-client-gateway
+  labels:
+    app: client-gateway
+    app.kubernetes.io/name: client-gateway
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.clientGateway.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: client-gateway
+      app.kubernetes.io/name: client-gateway
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: client-gateway
+        app.kubernetes.io/name: client-gateway
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: client-gateway
+          image: {{ .Values.clientGateway.image }}
+          env:
+          - name: PORT
+            value: "3000"
+          - name: NATS_SERVERS
+            value: "nats://nats:4222"
+          ports:
+            - containerPort: {{ .Values.clientGateway.containerPort | default 8080 }}
+          resources: {}
